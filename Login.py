@@ -1,11 +1,10 @@
 
 
-from pathlib import Path
 
 
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame, StringVar
 
-
+from Register import Register
 
 
 
@@ -181,6 +180,11 @@ def Login(window):
         height=40.0
     )
 
-Login(window)
+
+
+
+# Login(window)
+
+Register(window, window_width, window_height)
 window.resizable(False, False)
 window.mainloop()
