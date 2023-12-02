@@ -3,29 +3,44 @@
 from pathlib import Path
 
 
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame, StringVar
 
 
 
 
 
 window = Tk()
+window.title("K-Learning")
 
-window.geometry("1400x800")
+window_width = 1400
+window_height = 800
+window.geometry(f"{window_width}x{window_height}")
 window.configure(bg = "#FFFFFF")
 
 
 def exit():
+    print("button_3 Clicked")
     window.destroy()
 def Login(window):
-        
-    main_frame = Frame(window, width="1400", height="800",bg = "#3d3d3d")
+    username = StringVar()
+    password = StringVar()
+    def submit(*args):
+        print("button_2 clicked")
+        print (username.get())
+        print (password.get())
+
+
+
+        # entry_1.delete(0, 'end')
+
+    # username.trace("w", mywarWritten)    
+    main_frame = Frame(window, width=f"{window_width}", height=f"{window_height}",bg = "#3d3d3d")
     main_frame.pack()
     canvas = Canvas(
         main_frame,
         bg = "#000000",
-        height = 800,
-        width = 1400,
+        height = window_height,
+        width = window_width,
         bd = 0,
         highlightthickness = 0,
         relief = "ridge"
@@ -69,7 +84,7 @@ def Login(window):
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_2 clicked"),
+        command=lambda: submit(),
         relief="flat"
     )
     button_2.place(
@@ -91,7 +106,8 @@ def Login(window):
         bg="#FFFFFF",
         fg="#000716",
         highlightthickness=0,
-        font=("Calibri",24)
+        font=("Calibri",24),
+        textvariable=username
     )
     entry_1.place(
         x=458.0,
@@ -122,7 +138,8 @@ def Login(window):
         fg="#000716",
         highlightthickness=0,
         font=("Calibri",24),
-        show="*"
+        show="*",
+        textvariable=password
     )
     entry_2.place(
         x=458.0,
