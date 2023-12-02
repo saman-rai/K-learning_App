@@ -3,7 +3,7 @@
 from pathlib import Path
 
 
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame
 
 
 
@@ -13,12 +13,17 @@ window = Tk()
 
 window.geometry("1400x800")
 window.configure(bg = "#FFFFFF")
-OUTPUT_PATH = Path(__file__).parent
-def Login(window):
 
+
+def exit():
+    window.destroy()
+def Login(window):
+        
+    main_frame = Frame(window, width="1400", height="800",bg = "#3d3d3d")
+    main_frame.pack()
     canvas = Canvas(
-        window,
-        bg = "#FFFFFF",
+        main_frame,
+        bg = "#000000",
         height = 800,
         width = 1400,
         bd = 0,
@@ -149,8 +154,8 @@ def Login(window):
         image=button_image_3,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_3 clicked"),
-        relief="flat"
+        command=lambda: exit(),
+        relief="flat",
     )
     button_3.place(
         x=47.0,
