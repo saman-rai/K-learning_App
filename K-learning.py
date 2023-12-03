@@ -2,7 +2,6 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame, StringVa
 
 
 from Login import Login
-from Vocab import Vocab
 
 
 window = Tk()
@@ -17,8 +16,7 @@ def exit():
     print("button_3 Clicked")
     window.destroy()
 
-
-Vocab(window, window_width, window_height)
+Login(window, window_width, window_height)
 
 window.resizable(False, False)
 window.mainloop()

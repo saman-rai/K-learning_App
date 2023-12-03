@@ -2,10 +2,77 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame, StringVa
 
 from DB import connection,cursor
 import ttkbootstrap as tb
-def Vocab(window, window_width, window_height):
+def add_vocab(kr, en, userid):
+    insert_query = '''
+            INSERT INTO Vocab(
+                kr,
+                en,
+                userid
+            )
+            VALUES(
+                ?,
+                ?,
+                ?
+            )
+        '''
+    insert_values = (kr,en,userid)
+    try:
+        cursor.execute(insert_query, insert_values)
+        connection.commit()
+        print("data inserted")
+        return True
+    except:
+        print("registered")
+        return False
+def Vocab(window, window_width, window_height, user_info):
     # username = user_info[2]
-    # userid = user_info[0]
+    userid = user_info[0]
     # print(userid)
+    update_btn_clicked = False
+    kr = StringVar()
+    en = StringVar()
+
+
+    vocab_data = [
+        ("1", "a", "b"),
+        ("1", "a", "b"),
+        ("1", "a", "b"),
+    ]
+
+
+
+
+    def add_clicked():
+       
+        if not (kr.get()=="" and en.get()==""):
+            if add_vocab(kr.get(), en.get(), userid):
+                entry_1.delete(0, 'end')
+                entry_2.delete(0, 'end')
+                vocab_data.append(("1", "a", "b"))
+                update_tree()
+        else:
+            print("empty")
+    def select_row():
+        return (my_tree.item(my_tree.focus()))['values']
+ 
+
+    def update_row():
+        update_btn_clicked = True if False else True
+        row = select_row()
+        if not row=="":
+            # change_kr_en(row)
+            kr.set(row[1])
+            en.set(row[2])
+            
+    
+    def update_tree():
+        for i in my_tree.get_children():
+           my_tree.delete(i)
+        for vocab in vocab_data:
+            my_tree.insert('', tb.END, values=vocab)
+
+    
+    # 
     main_frame = Frame(window, width=f"{window_width}", height=f"{window_height}",bg = "#3d3d3d")
 
     main_frame.pack()
@@ -58,7 +125,7 @@ def Vocab(window, window_width, window_height):
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_2 clicked"),
+        command=lambda: add_clicked(),
         relief="flat"
     )
     button_2.place(
@@ -67,15 +134,32 @@ def Vocab(window, window_width, window_height):
         width=117.0,
         height=40.0
     )
+# tree view
+    # canvas.create_rectangle(
+    #     81.0,
+    #     163.0,
+    #     1320.0,
+    #     637.0,
+    #     fill="#ff0000",
+    #     outline="")
+    columns = ("id", "kr", "en")
+    my_tree = tb.Treeview(
+        main_frame,
+        bootstyle="success",
+        columns=columns,
+       
+    )
+    my_tree.place(
+        x=81.0,
+        y=163.0,
+        width=1239.0,
+        height=474.0,
+    )
+    my_tree["displaycolumns"]=("kr", "en")
+    update_tree()
+    
 
-    canvas.create_rectangle(
-        81.0,
-        163.0,
-        1320.0,
-        637.0,
-        fill="#D9D9D9",
-        outline="")
-
+    # 
     window.button_image_3 = button_image_3 = PhotoImage(
         file="assets/Vocab/button_3.png")
     button_3 = Button(
@@ -105,7 +189,7 @@ def Vocab(window, window_width, window_height):
         fg="#000716",
         highlightthickness=0,
         font=("Calibri",18),
-        # textvariable=email
+        textvariable=kr
     )
     entry_1.place(
         x=254.0,
@@ -136,7 +220,7 @@ def Vocab(window, window_width, window_height):
         fg="#000716",
         highlightthickness=0,
         font=("Calibri",18),
-        # textvariable=email
+        textvariable=en
     )
     entry_2.place(
         x=828.0,
@@ -160,7 +244,7 @@ def Vocab(window, window_width, window_height):
         image=button_image_4,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_4 clicked"),
+        command=lambda: update_row(),
         relief="flat"
     )
     button_4.place(
