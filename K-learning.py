@@ -1,6 +1,6 @@
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame, StringVar
 
-from Register import Register
+
 from Login import Login
 
 

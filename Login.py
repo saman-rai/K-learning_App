@@ -3,6 +3,7 @@ from DB import connection,cursor
 
 
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame, StringVar
+from MainMenu import MainMenu
 
 
 def Register(window, window_width, window_height):
@@ -15,11 +16,10 @@ def Register(window, window_width, window_height):
     def goto_login():
         main_frame.destroy()
         Login(window, window_width, window_height)
+    
     def submit(*args):
         print("button_2 clicked")
-        # print (email.get())
-        # print (username.get())
-        # print (password.get())
+       
         if not (email.get()=="" or username.get()=="" or password.get()==""):
             insert_user(email.get(),username.get(),password.get())
         else:
@@ -42,9 +42,12 @@ def Register(window, window_width, window_height):
             )
         '''
         insert_values = (email,name,password)
-        cursor.execute(insert_query, insert_values)
-        connection.commit()
-
+        try:
+            cursor.execute(insert_query, insert_values)
+            connection.commit()
+            goto_login()
+        except:
+            print("registered")
     main_frame = Frame(window, width=f"{window_width}", height=f"{window_height}",bg = "#ff0000")
     main_frame.pack()
     canvas = Canvas(
@@ -241,13 +244,20 @@ def Login(window, window_width, window_height):
     
         main_frame.destroy()
         Register(window, window_width, window_height)
-        
+    
+    def goto_mainmenu(user_info):
+        main_frame.destroy()
+        MainMenu(window, window_width, window_height, user_info)
     def submit(*args):
+        # goto_mainmenu()
+        # return
         print("button_2 clicked")
         if not (username.get()=="" or password.get()==""):
             user_info = auth_user(username.get(),password.get())
             if len(user_info):
                 print("login")
+                goto_mainmenu(user_info[0])
+                # print(user_info[0])
             else:
                 print("incorrect credentials")
         else:
