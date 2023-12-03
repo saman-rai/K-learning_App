@@ -11,4 +11,14 @@ connection.execute('''
     );
 ''')
 connection.commit()
+connection.execute('''
+    CREATE TABLE IF NOT EXISTS "Vocab" (
+        "id"	INTEGER NOT NULL UNIQUE,
+        "userid"	INTEGER NOT NULL,
+        "en"	TEXT NOT NULL,
+        "kr"	TEXT NOT NULL,
+        PRIMARY KEY("id" AUTOINCREMENT)
+    );
+''')
+connection.commit()
 cursor = connection.cursor()

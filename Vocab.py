@@ -1,0 +1,171 @@
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame, StringVar
+
+from DB import connection,cursor
+import ttkbootstrap as tb
+def Vocab(window, window_width, window_height):
+    # username = user_info[2]
+    # userid = user_info[0]
+    # print(userid)
+    main_frame = Frame(window, width=f"{window_width}", height=f"{window_height}",bg = "#3d3d3d")
+
+    main_frame.pack()
+    canvas = Canvas(
+        main_frame,
+        bg = "#FFFFFF",
+        height = 800,
+        width = 1400,
+        bd = 0,
+        highlightthickness = 0,
+        relief = "ridge"
+    )
+
+    canvas.place(x = 0, y = 0)
+    window.image_image_1 = image_image_1 = PhotoImage(
+        file="assets/Vocab/image_1.png")
+    image_1 = canvas.create_image(
+        700.0,
+        400.0,
+        image=image_image_1
+    )
+
+    canvas.create_rectangle(
+        45.0,
+        71.0,
+        1354.0,
+        730.0,
+        fill="#FFFFFF",
+        outline="")
+
+    window.button_image_1 = button_image_1 = PhotoImage(
+        file="assets/Vocab/button_1.png")
+    button_1 = Button(
+        image=button_image_1,
+        borderwidth=0,
+        highlightthickness=0,
+        command=lambda: print("button_1 clicked"),
+        relief="flat"
+    )
+    button_1.place(
+        x=53.0,
+        y=9.0,
+        width=120.0,
+        height=40.0
+    )
+
+    window.button_image_2 = button_image_2 = PhotoImage(
+        file="assets/Vocab/button_2.png")
+    button_2 = Button(
+        image=button_image_2,
+        borderwidth=0,
+        highlightthickness=0,
+        command=lambda: print("button_2 clicked"),
+        relief="flat"
+    )
+    button_2.place(
+        x=1200.0,
+        y=98.0,
+        width=117.0,
+        height=40.0
+    )
+
+    canvas.create_rectangle(
+        81.0,
+        163.0,
+        1320.0,
+        637.0,
+        fill="#D9D9D9",
+        outline="")
+
+    window.button_image_3 = button_image_3 = PhotoImage(
+        file="assets/Vocab/button_3.png")
+    button_3 = Button(
+        image=button_image_3,
+        borderwidth=0,
+        highlightthickness=0,
+        command=lambda: print("button_3"),
+        relief="flat"
+    )
+    button_3.place(
+        x=81.0,
+        y=658.0,
+        width=503.0,
+        height=45.0
+    )
+
+    window.entry_image_1 = entry_image_1 = PhotoImage(
+        file="assets/Vocab/entry_1.png")
+    entry_bg_1 = canvas.create_image(
+        417.0,
+        117.5,
+        image=entry_image_1
+    )
+    entry_1 = Entry(
+        bd=0,
+        bg="#FFFFFF",
+        fg="#000716",
+        highlightthickness=0,
+        font=("Calibri",18),
+        # textvariable=email
+    )
+    entry_1.place(
+        x=254.0,
+        y=99.0,
+        width=323.0,
+        height=40.0
+    )
+
+    canvas.create_text(
+        179.0,
+        104.0,
+        anchor="nw",
+        text="한글",
+        fill="#000000",
+        font=("Ubuntu Bold", 26 * -1)
+    )
+
+    window.entry_image_2 = entry_image_2 = PhotoImage(
+        file="assets/Vocab/entry_2.png")
+    entry_bg_2 = canvas.create_image(
+        992.0,
+        117.5,
+        image=entry_image_2
+    )
+    entry_2 = Entry(
+        bd=0,
+        bg="#FFFFFF",
+        fg="#000716",
+        highlightthickness=0,
+        font=("Calibri",18),
+        # textvariable=email
+    )
+    entry_2.place(
+        x=828.0,
+        y=99.0,
+        width=323.0,
+        height=40.0
+    )
+
+    canvas.create_text(
+        719.0,
+        104.0,
+        anchor="nw",
+        text="English",
+        fill="#000000",
+        font=("Ubuntu Bold", 26 * -1)
+    )
+
+    window.button_image_4 = button_image_4 = PhotoImage(
+        file="assets/Vocab/button_4.png")
+    button_4 = Button(
+        image=button_image_4,
+        borderwidth=0,
+        highlightthickness=0,
+        command=lambda: print("button_4 clicked"),
+        relief="flat"
+    )
+    button_4.place(
+        x=814.0,
+        y=658.0,
+        width=503.0,
+        height=45.0
+    )

@@ -2,10 +2,13 @@
 
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame, StringVar
 
-
+from Vocab import Vocab
 
 def MainMenu(window, window_width, window_height, user_info):
     username = user_info[2]
+    def goto_vocab():
+        main_frame.destroy()
+        Vocab(window, window_width, window_height, user_info)
     main_frame = Frame(window, width=f"{window_width}", height=f"{window_height}",bg = "#3d3d3d")
 
     main_frame.pack()
@@ -74,7 +77,7 @@ def MainMenu(window, window_width, window_height, user_info):
         image=button_image_3,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_3 clicked"),
+        command=lambda: goto_vocab(),
         relief="flat"
     )
     button_3.place(
