@@ -50,5 +50,5 @@ def add_vocab(kr, en, userid):
 
 
 # for d in val:
-#     succ = add_vocab(d[1], d[0], 4)
+#     succ = add_vocab(d[1], d[0], 1)
     

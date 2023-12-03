@@ -12,7 +12,7 @@ def Register(window, window_width, window_height):
     email = StringVar()
     username = StringVar()
     password = StringVar()
-    
+    errorMsg = ""
     def goto_login():
         main_frame.destroy()
         Login(window, window_width, window_height)
@@ -25,11 +25,13 @@ def Register(window, window_width, window_height):
         else:
             print("empty")
         # error
-        # errorMsg = "it is error"
+        
         # canvas.itemconfig(error_canvas, text=errorMsg)
 
     def insert_user(email,name, password):
-        insert_query = '''
+        cursor.execute(f"SELECT * FROM Users WHERE username = '{name}'")
+        if len(cursor.fetchall())<1:
+            insert_query = '''
             INSERT INTO Users(
                 email,
                 username,
@@ -41,13 +43,18 @@ def Register(window, window_width, window_height):
                 ?
             )
         '''
-        insert_values = (email,name,password)
-        try:
-            cursor.execute(insert_query, insert_values)
-            connection.commit()
-            goto_login()
-        except:
-            print("registered")
+            insert_values = (email,name,password)
+            try:
+                cursor.execute(insert_query, insert_values)
+                connection.commit()
+                goto_login()
+            except:
+                print("not registered")
+        else:
+            errorMsg="Username exists"
+            print(errorMsg)
+            canvas.itemconfig(error_canvas, text=errorMsg)
+        
     main_frame = Frame(window, width=f"{window_width}", height=f"{window_height}",bg = "#ff0000")
     main_frame.pack()
     canvas = Canvas(
@@ -96,7 +103,7 @@ def Register(window, window_width, window_height):
             460.0,
             525.0,
             anchor="nw",
-            text="error",
+            text=errorMsg,
             fill="#FF0000",
             font=("Ubuntu Bold", 22 * -1),
         )
@@ -239,6 +246,7 @@ def Register(window, window_width, window_height):
 def Login(window, window_width, window_height):
     username = StringVar()
     password = StringVar()
+    errorMsg = ""
 
     def goto_register():
     
@@ -249,7 +257,7 @@ def Login(window, window_width, window_height):
         main_frame.destroy()
         MainMenu(window, window_width, window_height, user_info)
     def submit(*args):
-        # goto_mainmenu(('1','saman@gmail.com', "saman", "123"))
+        # goto_mainmenu(('4','bhaskar@gmail.com', "bhaskar", "12345"))
         # return
         print("button_2 clicked")
         if not (username.get()=="" or password.get()==""):
@@ -259,7 +267,8 @@ def Login(window, window_width, window_height):
                 goto_mainmenu(user_info[0])
                 # print(user_info[0])
             else:
-                print("incorrect credentials")
+                errorMsg="Incorrect Credentials"
+                canvas.itemconfig(error_canvas, text=errorMsg)
         else:
             print("empty entry")
 
@@ -320,7 +329,7 @@ def Login(window, window_width, window_height):
         width=129.0,
         height=37.0
     )
-
+    
     window.button_image_2 =button_image_2 = PhotoImage(
         file="assets/Login/button_2.png")
     button_2 = Button(
@@ -336,7 +345,14 @@ def Login(window, window_width, window_height):
         width=503.0,
         height=72.0
     )
-
+    error_canvas=canvas.create_text(
+        456.0,
+        490.0,
+        anchor="nw",
+        text=errorMsg,
+        fill="#FF0000",
+        font=("Ubuntu Bold", 22 * -1),
+    )
     window.entry_image_1 =entry_image_1 = PhotoImage(
         file="assets/Login/entry_1.png")
     entry_bg_1 = canvas.create_image(
