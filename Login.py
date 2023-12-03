@@ -249,8 +249,8 @@ def Login(window, window_width, window_height):
         main_frame.destroy()
         MainMenu(window, window_width, window_height, user_info)
     def submit(*args):
-        goto_mainmenu(('1','saman@gmail.com', "saman", "123"))
-        return
+        # goto_mainmenu(('1','saman@gmail.com', "saman", "123"))
+        # return
         print("button_2 clicked")
         if not (username.get()=="" or password.get()==""):
             user_info = auth_user(username.get(),password.get())
